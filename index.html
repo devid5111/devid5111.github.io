@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en" data-style="classic">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Devid Parmar - Full Stack Web Developer. Scroll through the route to see my work." />
+  <meta name="author" content="Devid Parmar" />
+  <meta name="theme-color" content="#efece4" />
+  <title>Devid Parmar — The Route</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,500..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ==========================================================
+       THE ROUTE — Devid Parmar
+       A portfolio you travel through. Scroll down and explore
+       the journey across eight stations.
+       Palette: paper, ink, and signal red.
+       ========================================================== */
+
+    :root {
+      --paper: #efece4;
+      --paper-2: #e6e2d7;
+      --ink: #101010;
+      --ink-2: #1c1c1a;
+      --muted: #6a6a64;
+      --signal: #ff4f1f;
+      --line: rgba(16, 16, 16, 0.16);
+      --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+      --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      --pad: clamp(24px, 5vw, 80px);
+      --ease: cubic-bezier(0.7, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper); color: var(--ink);
+      font-family: var(--display); font-size: 16px; line-height: 1.55;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+    ::selection { background: var(--signal); color: var(--paper); }
+    :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+    .mono { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ---------- Route bar (fixed top) ---------- */
+    .routebar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px;
+      padding: 18px var(--pad); background: rgba(239, 236, 228, 0.9);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { font-weight: 800; font-stretch: 110%; font-size: 18px; letter-spacing: -0.02em; }
+    .brand span { color: var(--signal); }
+    .stations { display: flex; gap: 22px; align-items: center; justify-content: center; position: relative; }
+    .stations::before {
+      content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line);
+    }
+    .station-btn {
+      position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+      transition: color 0.3s;
+    }
+    .station-btn i {
+      width: 11px; height: 11px; border-radius: 50%; background: var(--paper); border: 1.5px solid var(--ink);
+      position: relative; z-index: 1; transition: background 0.3s, transform 0.3s;
+    }
+    .station-btn:hover { color: var(--ink); }
+    .station-btn.current { color: var(--ink); }
+    .station-btn.current i { background: var(--signal); border-color: var(--signal); transform: scale(1.25); }
+    .station-btn span.lbl { white-space: nowrap; }
+    .contact-link {
+      font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+      border: 1.5px solid var(--ink); padding: 9px 16px; border-radius: 999px; transition: background 0.3s, color 0.3s;
+    }
+    .contact-link:hover { background: var(--ink); color: var(--paper); }
+
+    /* ---------- The route (vertical scroll) ---------- */
+    .route-wrap { position: relative; width: 100%; }
+    .sticky { position: relative; width: 100%; }
+    .track {
+      position: relative; width: 100%; display: flex; flex-direction: column;
+    }
+
+    .panel {
+      position: relative; width: 100%; height: auto; min-height: 100vh; padding: 130px var(--pad) 90px;
+      display: flex; flex-direction: column; justify-content: center;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 70px;
+    }
+    .panel:last-child { border-bottom: 0; }
+    .panel-no {
+      position: absolute; top: 110px; right: var(--pad); font-family: var(--mono); font-size: 12px; color: var(--muted);
+    }
+    .panel-label { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal); margin-bottom: 1.2rem; }
+    .h-xl {
+      font-weight: 800; font-stretch: 112%; letter-spacing: -0.035em; line-height: 0.92;
+      font-size: clamp(3.2rem, 11vw, 11rem);
+    }
+    .h-l {
+      font-weight: 800; font-stretch: 110%; letter-spacing: -0.03em; line-height: 0.98;
+      font-size: clamp(2.4rem, 6vw, 5.4rem);
+    }
+    .lead { font-size: clamp(1.1rem, 1.8vw, 1.45rem); max-width: 36ch; line-height: 1.45; }
+    .muted { color: var(--muted); }
+
+    /* Station 1: intro */
+    .intro .h-xl { max-width: 12ch; }
+    .intro .h-xl .out { color: transparent; -webkit-text-stroke: 1.5px var(--ink); }
+    .intro-meta { margin-top: 3rem; display: flex; gap: 48px; flex-wrap: wrap; }
+    .intro-meta div { max-width: 260px; }
+    .intro-meta b { display: block; font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .scroll-hint {
+      position: absolute; left: var(--pad); bottom: 50px; display: flex; align-items: center; gap: 14px;
+      font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .scroll-hint .arrow {
+      width: 1.5px; height: 38px; background: var(--ink); position: relative; overflow: hidden;
+    }
+    .scroll-hint .arrow::after {
+      content: ""; position: absolute; top: -40%; left: 0; width: 100%; height: 40%; background: var(--signal);
+      animation: slideDown 1.8s var(--ease) infinite;
+    }
+    @keyframes slideDown { to { top: 100%; } }
+
+    /* Station 2: about */
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 6vw; align-items: center; }
+    .about-body p { margin-bottom: 1.1rem; max-width: 52ch; color: var(--ink-2); }
+    .fact-table { border-top: 1.5px solid var(--ink); }
+    .fact-table div {
+      display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); font-size: 15px;
+    }
+    .fact-table span { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); padding-top: 3px; }
+    .fact-table a { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+    .fact-table a:hover { color: var(--signal); }
+
+    /* Station 3: services */
+    .services { display: grid; grid-template-columns: repeat(5, minmax(220px, 1fr)); gap: 0; border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); margin-top: 2rem; }
+    .service { padding: 28px 26px 32px 0; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 12px; }
+    .service:not(:first-child) { padding-left: 26px; }
+    .service:last-child { border-right: 0; }
+    .service .n { font-family: var(--mono); font-size: 12px; color: var(--signal); }
+    .service h3 { font-size: 1.45rem; font-weight: 700; font-stretch: 105%; line-height: 1.1; letter-spacing: -0.01em; }
+    .service p { color: var(--muted); font-size: 15px; }
+    .service .status { margin-top: auto; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* Station 4: skills */
+    .skill-words { display: flex; flex-wrap: wrap; gap: 0.08em 0.42em; margin-top: 1.5rem; max-width: calc(100vw - 2 * var(--pad)); }
+    .skill-words span {
+      font-weight: 800; font-stretch: 112%; font-size: clamp(2.2rem, 5.4vw, 6rem); line-height: 1.04; letter-spacing: -0.03em;
+      color: transparent; -webkit-text-stroke: 1.2px var(--ink); transition: color 0.35s, -webkit-text-stroke-color 0.35s, transform 0.35s var(--ease);
+      cursor: default;
+    }
+    .skill-words span:hover { color: var(--ink); -webkit-text-stroke-color: var(--ink); transform: translateY(-4px); }
+    .skill-words span.hot { color: var(--signal); -webkit-text-stroke-color: var(--signal); }
+    .skill-words span.hot:hover { color: var(--signal); }
+    .skill-footnote { margin-top: 2.2rem; display: flex; gap: 22px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+    .skill-footnote b { color: var(--signal); font-weight: 500; }
+
+    /* Station 5: projects */
+    .projects-panel {
+      width: 100%; height: auto; min-height: 100vh; padding: 130px var(--pad) 100px;
+      justify-content: flex-start;
+    }
+    .projects-head { width: 100%; max-width: 680px; }
+    .projects-head .h-l { font-size: clamp(2.4rem, 5vw, 4.2rem); }
+    .rail {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+      width: 100%;
+    }
+    .proj {
+      border: 1.5px solid var(--ink);
+      background: var(--paper); padding: 26px; display: flex; flex-direction: column; gap: 14px; position: relative;
+      min-height: 320px; height: auto;
+      transition: background 0.4s, color 0.4s;
+    }
+    .proj:hover { background: var(--ink); color: var(--paper); }
+    .proj:hover .proj-tag { border-color: var(--paper); }
+    .proj:hover p { color: rgba(239, 236, 228, 0.78); }
+    .proj:hover .proj-link { border-color: var(--paper); color: var(--paper); }
+    .proj .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+    .proj .num { font-family: var(--mono); font-size: 12px; color: var(--signal); }
+    .proj h3 { font-size: clamp(1.7rem, 2.6vw, 2.3rem); font-weight: 800; font-stretch: 110%; letter-spacing: -0.02em; line-height: 1.02; }
+    .proj p { color: var(--muted); font-size: 15px; transition: color 0.4s; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; }
+    .proj-tag { font-family: var(--mono); font-size: 11px; border: 1px solid var(--ink); padding: 3px 8px; text-transform: uppercase; letter-spacing: 0.05em; transition: border-color 0.4s; }
+    .proj-link {
+      display: inline-flex; justify-content: space-between; align-items: center; border-top: 1.5px solid currentColor;
+      padding-top: 12px; font-weight: 700; font-size: 15px; transition: border-color 0.4s, color 0.4s;
+    }
+    .proj-link::after { content: "\2197"; font-size: 18px; transition: transform 0.4s var(--ease); }
+    .proj:hover .proj-link::after { transform: translate(3px, -3px); }
+    .proj.live .top::after {
+      content: "LIVE"; font-family: var(--mono); font-size: 11px; background: var(--signal); color: var(--paper); padding: 3px 8px; letter-spacing: 0.06em;
+    }
+
+    /* Station 6: education */
+    .edu { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; align-items: end; }
+    .edu-steps { list-style: none; border-left: 1.5px solid var(--ink); padding-left: 28px; }
+    .edu-steps li { position: relative; padding-bottom: 26px; }
+    .edu-steps li::before {
+      content: ""; position: absolute; left: -36px; top: 6px; width: 13px; height: 13px; background: var(--signal); border-radius: 50%;
+    }
+    .edu-steps li:last-child { padding-bottom: 0; }
+    .edu-steps b { display: block; font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+    .edu-steps span { color: var(--muted); }
+
+    /* Station 7: contact */
+    .contact { background: var(--ink); color: var(--paper); }
+    .contact .panel-label { color: var(--signal); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; align-items: start; }
+    .contact .h-xl { font-size: clamp(3rem, 8vw, 8rem); }
+    .contact-list { margin-top: 2.2rem; display: grid; gap: 18px; }
+    .contact-list a { font-size: clamp(1.2rem, 2vw, 1.7rem); font-weight: 700; font-stretch: 105%; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+    .contact-list a:hover { color: var(--signal); }
+    .contact-list span { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(239, 236, 228, 0.55); margin-bottom: 4px; }
+    .form { display: grid; gap: 22px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(239, 236, 228, 0.6); }
+    .field input, .field textarea {
+      background: transparent; border: 0; border-bottom: 1.5px solid rgba(239, 236, 228, 0.35); padding: 10px 0; color: var(--paper);
+      font: inherit; font-size: 1.15rem; outline: none; resize: none; transition: border-color 0.3s;
+    }
+    .field input:focus, .field textarea:focus { border-color: var(--signal); }
+    .field.invalid input, .field.invalid textarea { border-color: var(--signal); }
+    .field .err { font-family: var(--mono); font-size: 12px; color: var(--signal); min-height: 1em; }
+    .send {
+      justify-self: start; background: var(--signal); color: var(--ink); font-weight: 800; font-stretch: 110%;
+      padding: 16px 28px; font-size: 1.05rem; transition: transform 0.35s var(--ease), background 0.3s;
+    }
+    .send:hover { transform: translateX(6px); background: var(--paper); }
+    .form-note { font-family: var(--mono); font-size: 12px; min-height: 1.2em; color: rgba(239, 236, 228, 0.7); }
+
+    /* ---------- Footer (after the route) ---------- */
+    .footer { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding: 26px var(--pad); border-top: 1.5px solid var(--ink); }
+    .footer a:hover { color: var(--signal); }
+
+    /* ---------- Reveal inside panels (driven by IntersectionObserver) ---------- */
+    .js .rv { opacity: 0; transform: translateY(32px); transition: opacity 0.85s var(--ease), transform 0.85s var(--ease); }
+    .js .rv.in { opacity: 1; transform: none; }
+    .js .rv.d1 { transition-delay: 0.12s; }
+    .js .rv.d2 { transition-delay: 0.24s; }
+    .js .rv.d3 { transition-delay: 0.36s; }
+
+    /* ---------- Cursor (desktop) ---------- */
+    .cursor {
+      position: fixed; top: 0; left: 0; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%;
+      background: var(--signal); pointer-events: none; z-index: 100; mix-blend-mode: normal; transition: width 0.3s, height 0.3s, margin 0.3s, background 0.3s;
+      display: none; opacity: 0; transition: opacity 0.3s, width 0.3s, height 0.3s, margin 0.3s, background 0.3s;
+    }
+    .cursor.on { opacity: 1; }
+    .cursor.big { width: 56px; height: 56px; margin: -28px 0 0 -28px; background: transparent; border: 1.5px solid var(--signal); }
+    @media (hover: hover) and (pointer: fine) { .cursor { display: block; } }
+
+    /* ---------- Responsive: stacked layout on small screens ---------- */
+    @media (max-width: 1100px) {
+      .services { grid-template-columns: repeat(3, 1fr); }
+      .service:nth-child(3) { border-right: 0; }
+      .service:nth-child(n+4) { border-top: 1px solid var(--line); }
+    }
+
+    @media (max-width: 900px) {
+      .routebar { grid-template-columns: 1fr auto; padding: 14px var(--pad); }
+      .stations { display: none; }
+      .contact-link { font-size: 11px; padding: 8px 12px; }
+
+      .panel { padding: 110px var(--pad) 80px; }
+      .panel-no { top: 96px; }
+      .scroll-hint { display: none; }
+      .about-grid, .edu, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .services { grid-template-columns: 1fr; margin-top: 1.5rem; }
+      .service, .service:not(:first-child) { padding: 22px 0; border-right: 0; border-top: 1px solid var(--line); }
+      .service:first-child { border-top: 0; }
+      .rail { grid-template-columns: 1fr; }
+      .skill-words span { font-size: clamp(2.2rem, 11vw, 4rem); }
+      .intro-meta { gap: 28px; }
+      .fact-table div { grid-template-columns: 1fr; gap: 4px; }
+    }
+
+
+    /* ---------- Portrait (photo slot) ---------- */
+    .portrait {
+      position: absolute; right: var(--pad); top: 50%; transform: translateY(-50%);
+      width: clamp(250px, 25vw, 400px); aspect-ratio: 4 / 5; z-index: 2; margin: 0;
+    }
+    .portrait-frame {
+      position: absolute; inset: 22px -22px -22px 22px; border: 1.5px solid var(--signal); z-index: 0;
+    }
+    .portrait img, .portrait-fallback {
+      position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; display: block;
+      background: var(--ink); filter: grayscale(100%) contrast(1.06);
+      transition: filter 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .portrait:hover img { filter: grayscale(0%) contrast(1); transform: scale(1.02); }
+    .portrait-fallback {
+      display: none; place-items: center; color: var(--paper);
+      font-weight: 800; font-stretch: 112%; font-size: clamp(4rem, 9vw, 7rem); letter-spacing: -0.04em;
+    }
+    .portrait figcaption {
+      position: absolute; left: 0; bottom: -54px; font-family: var(--mono); font-size: 11.5px;
+      text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap;
+    }
+
+    @keyframes portraitIn { from { opacity: 0; } to { opacity: 1; } }
+    .portrait { animation: portraitIn 1.2s var(--ease) 0.3s both; }
+
+    /* Live "now" chip & visitor badge */
+    .now {
+      margin-top: 2.2rem; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono);
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; border: 1.5px solid var(--ink);
+      padding: 9px 14px;
+    }
+    .now .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--signal); animation: ping 1.6s infinite; }
+    @keyframes ping {
+      0% { box-shadow: 0 0 0 0 rgba(255, 79, 31, 0.6); }
+      70% { box-shadow: 0 0 0 9px rgba(255, 79, 31, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 79, 31, 0); }
+    }
+
+    .intro-badges { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 2.2rem; }
+    .intro-badges .now { margin-top: 0; }
+    .visitor-chip {
+      align-self: flex-start; display: inline-flex; align-items: center; gap: 9px; font-family: var(--mono);
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; border: 1.5px solid var(--ink);
+      padding: 9px 14px; background: transparent; transition: background 0.3s, color 0.3s;
+    }
+    .visitor-chip .eye-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #10b981;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+      animation: pingGreen 1.8s infinite;
+    }
+    @keyframes pingGreen {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+      70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .visitor-chip b { font-weight: 600; color: var(--ink); }
+    .visitor-foot { display: inline-flex; align-items: center; gap: 6px; }
+    .visitor-foot .eye-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: #10b981; display: inline-block;
+    }
+
+    /* ---------- Estimator station ---------- */
+    .est-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 5vw; align-items: stretch; }
+    .est-form h2 { margin-bottom: 1.8rem; }
+    .est-form fieldset { border: 0; margin-bottom: 1.6rem; min-width: 0; }
+    .est-form legend {
+      font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--muted); margin-bottom: 10px;
+    }
+    .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+    .opt {
+      display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--ink); padding: 9px 14px;
+      font-weight: 600; font-size: 15px; cursor: pointer; transition: background 0.25s, color 0.25s, transform 0.25s var(--ease);
+      user-select: none;
+    }
+    .opt:hover { transform: translateY(-2px); }
+    .opt input { accent-color: var(--signal); width: 16px; height: 16px; margin: 0; }
+    .opt:has(input:checked) { background: var(--ink); color: var(--paper); }
+    .range-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; max-width: 520px; }
+    .range-row input[type="range"] { width: 100%; accent-color: var(--signal); }
+    .range-row output {
+      font-weight: 800; font-stretch: 112%; font-size: 1.6rem; min-width: 2.4ch; text-align: right;
+    }
+    .est-result {
+      background: var(--ink); color: var(--paper); padding: clamp(28px, 3.5vw, 48px);
+      display: flex; flex-direction: column; justify-content: space-between; gap: 18px; position: relative; overflow: hidden;
+    }
+    .est-result::after {
+      content: ""; position: absolute; right: -60px; bottom: -60px; width: 200px; height: 200px; border-radius: 50%;
+      background: var(--signal); opacity: 0.85; pointer-events: none;
+    }
+    .est-result > * { position: relative; z-index: 1; }
+    .est-result .mono { color: rgba(239, 236, 228, 0.6); }
+    .est-price {
+      font-weight: 800; font-stretch: 112%; letter-spacing: -0.03em; line-height: 1;
+      font-size: clamp(2.2rem, 4.4vw, 4rem); transition: opacity 0.3s;
+    }
+    .est-meta { font-size: 16px; color: rgba(239, 236, 228, 0.82); }
+    .est-note { font-size: 13px; color: rgba(239, 236, 228, 0.55); }
+    .est-result .send { background: var(--signal); color: var(--ink); justify-self: start; }
+    .est-result .send:hover { background: var(--paper); }
+
+    @media (max-width: 1100px) {
+      .portrait { width: clamp(220px, 24vw, 300px); }
+    }
+
+
+    /* ==========================================================
+       STYLE SWITCHER — Classic (default), Dark, Glass, Neumorphism
+       Driven by the data-style attribute on <html>.
+       ========================================================== */
+
+    body { transition: background-color 0.6s var(--ease), color 0.6s var(--ease); }
+    .panel, .routebar, .proj, .service, .est-result, .now, .visitor-chip, .opt, .contact, .btn-soft {
+      transition: background-color 0.6s var(--ease), box-shadow 0.6s var(--ease), border-color 0.6s var(--ease), color 0.6s var(--ease);
+    }
+
+    /* Style select (in header) */
+    .head-right { display: flex; align-items: center; gap: 10px; justify-self: end; }
+    .style-select {
+      font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+      padding: 9px 30px 9px 14px; border-radius: 999px; border: 1.5px solid var(--ink);
+      background: var(--paper) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path d='M0 0l5 6 5-6z' fill='%23888'/></svg>") no-repeat right 12px center;
+      color: var(--ink); appearance: none; -webkit-appearance: none; cursor: pointer;
+    }
+    .style-select:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* ---------- DARK ---------- */
+    html[data-style="dark"] {
+      --paper: #0c0d12;
+      --ink: #ebe8e0;
+      --ink-2: #c9c6be;
+      --muted: #8d8f99;
+      --line: rgba(235, 232, 224, 0.14);
+      --signal: #ff6a3d;
+    }
+    html[data-style="dark"] .routebar { background: rgba(12, 13, 18, 0.92); }
+    html[data-style="dark"] .contact { background: #16171f; color: var(--ink); }
+    html[data-style="dark"] .contact .contact-list span,
+    html[data-style="dark"] .contact .field label { color: var(--muted); }
+    html[data-style="dark"] .contact .field input,
+    html[data-style="dark"] .contact .field textarea { color: var(--ink); }
+    html[data-style="dark"] .est-result { background: #16171f; color: var(--ink); }
+    html[data-style="dark"] .proj { background: #12131a; border-color: rgba(235, 232, 224, 0.18); }
+    html[data-style="dark"] .proj:hover { background: var(--ink); color: var(--paper); }
+    html[data-style="dark"] .send { color: #0c0d12; }
+
+    /* ---------- GLASSMORPHISM ---------- */
+    html[data-style="glass"] {
+      --paper: #1b1140;
+      --ink: #f4f1ff;
+      --ink-2: #e2dcf5;
+      --muted: #c2b8e2;
+      --line: rgba(255, 255, 255, 0.2);
+      --signal: #ff7ab6;
+    }
+    html[data-style="glass"] body {
+      background:
+        radial-gradient(900px 600px at 8% 12%, rgba(124, 58, 237, 0.85), transparent 60%),
+        radial-gradient(800px 600px at 92% 30%, rgba(6, 182, 212, 0.7), transparent 55%),
+        radial-gradient(900px 700px at 50% 105%, rgba(244, 114, 182, 0.7), transparent 60%),
+        #1b1140;
+      background-attachment: fixed;
+    }
+    html[data-style="glass"] .routebar {
+      background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(18px) saturate(140%); -webkit-backdrop-filter: blur(18px) saturate(140%);
+      border-bottom-color: rgba(255, 255, 255, 0.18);
+    }
+    html[data-style="glass"] .proj,
+    html[data-style="glass"] .service,
+    html[data-style="glass"] .est-result,
+    html[data-style="glass"] .now,
+    html[data-style="glass"] .visitor-chip {
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%);
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 22px;
+      box-shadow: 0 24px 50px -22px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    }
+    html[data-style="glass"] .service { border-right: 0; }
+    html[data-style="glass"] .proj:hover { background: rgba(255, 255, 255, 0.22); color: var(--ink); }
+    html[data-style="glass"] .proj:hover p { color: var(--ink-2); }
+    html[data-style="glass"] .proj:hover .proj-link { border-color: var(--ink); color: var(--ink); }
+    html[data-style="glass"] .proj:hover .proj-tag { border-color: var(--ink); }
+    html[data-style="glass"] .opt {
+      background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 999px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    html[data-style="glass"] .opt:has(input:checked) { background: rgba(255, 255, 255, 0.9); color: #1b1140; }
+    html[data-style="glass"] .contact { background: transparent; color: var(--ink); }
+    html[data-style="glass"] .contact .contact-list span,
+    html[data-style="glass"] .contact .field label { color: var(--muted); }
+    html[data-style="glass"] .contact .field input,
+    html[data-style="glass"] .contact .field textarea { color: var(--ink); border-bottom-color: rgba(255, 255, 255, 0.4); }
+    html[data-style="glass"] .est-result::after { background: var(--signal); opacity: 0.6; filter: blur(4px); }
+    html[data-style="glass"] .est-result .mono,
+    html[data-style="glass"] .est-meta,
+    html[data-style="glass"] .est-note { color: var(--muted); }
+    html[data-style="glass"] .send { color: #1b1140; }
+    html[data-style="glass"] .portrait-frame { border-color: rgba(255, 255, 255, 0.5); }
+
+    /* ---------- NEUMORPHISM ---------- */
+    html[data-style="neu"] {
+      --paper: #e4e8ef;
+      --ink: #2b2f3a;
+      --ink-2: #3d4250;
+      --muted: #6d7482;
+      --line: rgba(43, 47, 58, 0.1);
+      --signal: #ff5a2e;
+    }
+    html[data-style="neu"] .routebar {
+      background: var(--paper); border-bottom: 0; box-shadow: 0 10px 22px -14px rgba(163, 177, 198, 0.9);
+    }
+    html[data-style="neu"] .panel { border-bottom-color: transparent; }
+    html[data-style="neu"] .proj,
+    html[data-style="neu"] .service,
+    html[data-style="neu"] .est-result,
+    html[data-style="neu"] .now,
+    html[data-style="neu"] .visitor-chip {
+      background: var(--paper); border: 0; border-radius: 24px;
+      box-shadow: 9px 9px 18px #c3c9d4, -9px -9px 18px #ffffff;
+    }
+    html[data-style="neu"] .service { border-right: 0; }
+    html[data-style="neu"] .proj:hover {
+      background: var(--paper); color: var(--ink);
+      box-shadow: inset 6px 6px 12px #c3c9d4, inset -6px -6px 12px #ffffff;
+    }
+    html[data-style="neu"] .proj:hover p { color: var(--muted); }
+    html[data-style="neu"] .proj:hover .proj-link { border-color: var(--ink); color: var(--ink); }
+    html[data-style="neu"] .proj:hover .proj-tag { border-color: var(--ink); }
+    html[data-style="neu"] .proj-tag { border: 0; box-shadow: inset 2px 2px 4px #c3c9d4, inset -2px -2px 4px #ffffff; border-radius: 999px; padding: 4px 10px; }
+    html[data-style="neu"] .now,
+    html[data-style="neu"] .visitor-chip { border: 0; border-radius: 999px; }
+    html[data-style="neu"] .opt {
+      border: 0; border-radius: 999px; background: var(--paper);
+      box-shadow: 6px 6px 12px #c3c9d4, -6px -6px 12px #ffffff;
+    }
+    html[data-style="neu"] .opt:has(input:checked) {
+      background: var(--paper); color: var(--signal);
+      box-shadow: inset 4px 4px 8px #c3c9d4, inset -4px -4px 8px #ffffff;
+    }
+    html[data-style="neu"] .range-row input[type="range"] { accent-color: var(--signal); }
+    html[data-style="neu"] .est-result { color: var(--ink); }
+    html[data-style="neu"] .est-result .mono,
+    html[data-style="neu"] .est-meta,
+    html[data-style="neu"] .est-note { color: var(--muted); }
+    html[data-style="neu"] .est-result::after { opacity: 0.9; }
+    html[data-style="neu"] .contact { background: var(--paper); color: var(--ink); }
+    html[data-style="neu"] .contact .contact-list span,
+    html[data-style="neu"] .contact .field label { color: var(--muted); }
+    html[data-style="neu"] .contact .field input,
+    html[data-style="neu"] .contact .field textarea {
+      color: var(--ink); border: 0; border-radius: 14px; padding: 12px 14px; background: var(--paper);
+      box-shadow: inset 5px 5px 10px #c3c9d4, inset -5px -5px 10px #ffffff;
+    }
+    html[data-style="neu"] .contact .field input:focus,
+    html[data-style="neu"] .contact .field textarea:focus { box-shadow: inset 5px 5px 10px #c3c9d4, inset -5px -5px 10px #ffffff, 0 0 0 2px var(--signal); }
+    html[data-style="neu"] .send {
+      color: var(--ink); box-shadow: 8px 8px 16px #c3c9d4, -8px -8px 16px #ffffff; border-radius: 999px;
+    }
+    html[data-style="neu"] .send:hover { background: var(--ink); color: var(--paper); }
+    html[data-style="neu"] .skill-words span { -webkit-text-stroke-color: var(--ink); }
+
+    /* Shared: hover colour for the send button across styles */
+    html[data-style] .send:hover { background: var(--ink); color: var(--paper); }
+    html[data-style="glass"] .send:hover { color: var(--paper); }
+
+    /* ---------- WhatsApp widget & quote button ---------- */
+    .whatsapp-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 90;
+      display: inline-flex; align-items: center; gap: 10px;
+      background: #25D366; color: #ffffff;
+      padding: 12px 18px 12px 14px;
+      border-radius: 999px;
+      font-family: var(--mono); font-size: 12px; font-weight: 500;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      box-shadow: 0 10px 24px -6px rgba(37, 211, 102, 0.45), 0 4px 10px rgba(0,0,0,0.12);
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s, color 0.3s;
+      text-decoration: none; cursor: pointer;
+    }
+    .whatsapp-float:hover {
+      transform: translateY(-3px) scale(1.03);
+      background: #20ba59; color: #ffffff;
+      box-shadow: 0 16px 30px -4px rgba(37, 211, 102, 0.6), 0 6px 14px rgba(0,0,0,0.18);
+    }
+    .whatsapp-float .wa-icon-wrap { position: relative; display: flex; align-items: center; justify-content: center; }
+    .whatsapp-float .wa-pulse-dot {
+      position: absolute; top: -2px; right: -2px; width: 8px; height: 8px;
+      background: #ffffff; border-radius: 50%;
+      box-shadow: 0 0 0 2px #25D366;
+      animation: waPing 2s infinite;
+    }
+    @keyframes waPing {
+      0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(255, 255, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+    }
+    .send.btn-wa {
+      background: #25D366; color: #ffffff; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .send.btn-wa:hover {
+      background: #20ba59; color: #ffffff; transform: translateX(6px);
+    }
+    html[data-style="dark"] .whatsapp-float { box-shadow: 0 10px 26px -6px rgba(37, 211, 102, 0.35); }
+    html[data-style="glass"] .whatsapp-float {
+      background: rgba(37, 211, 102, 0.28);
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: 0 16px 36px -10px rgba(37, 211, 102, 0.45);
+    }
+    html[data-style="glass"] .whatsapp-float:hover { background: rgba(37, 211, 102, 0.45); }
+    html[data-style="glass"] .send.btn-wa { background: rgba(37, 211, 102, 0.35); color: #ffffff; }
+    html[data-style="glass"] .send.btn-wa:hover { background: rgba(37, 211, 102, 0.6); }
+    html[data-style="neu"] .whatsapp-float {
+      background: var(--paper); color: #128C7E; border: 0;
+      box-shadow: 6px 6px 14px #c3c9d4, -6px -6px 14px #ffffff;
+    }
+    html[data-style="neu"] .whatsapp-float:hover {
+      box-shadow: inset 4px 4px 8px #c3c9d4, inset -4px -4px 8px #ffffff;
+      background: var(--paper); color: #25D366;
+    }
+    html[data-style="neu"] .whatsapp-float .wa-pulse-dot { background: #25D366; box-shadow: 0 0 0 2px var(--paper); }
+    html[data-style="neu"] .send.btn-wa { color: #128C7E; }
+    html[data-style="neu"] .send.btn-wa:hover { color: var(--paper); background: #128C7E; }
+
+    @media (max-width: 600px) {
+      .whatsapp-float .wa-label { display: none; }
+      .whatsapp-float { padding: 13px; border-radius: 50%; bottom: 20px; right: 20px; }
+    }
+    @media (max-width: 900px) {
+      .style-select { font-size: 11px; padding: 7px 26px 7px 10px; }
+      .head-right { gap: 8px; }
+    }
+
+    /* ---------- Mobile overrides (last, so they win over desktop rules) ---------- */
+    @media (max-width: 900px) {
+      .portrait { position: relative; right: auto; top: auto; transform: none; width: min(280px, 70vw); margin: 0 0 3.6rem; }
+      .portrait figcaption { bottom: -40px; }
+      .est-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .now, .visitor-chip { font-size: 11px; letter-spacing: 0.03em; padding: 8px 12px; }
+      .projects-panel { padding-top: 110px; }
+      .projects-head .h-l { font-size: clamp(2rem, 9vw, 2.8rem); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .rv { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Route bar -->
+  <header class="routebar">
+    <a href="#intro" class="brand">DP<span>.</span></a>
+    <nav class="stations" id="stations" aria-label="Portfolio stations">
+      <button class="station-btn" data-station="0"><i></i><span class="lbl">Intro</span></button>
+      <button class="station-btn" data-station="1"><i></i><span class="lbl">About</span></button>
+      <button class="station-btn" data-station="2"><i></i><span class="lbl">Services</span></button>
+      <button class="station-btn" data-station="3"><i></i><span class="lbl">Skills</span></button>
+      <button class="station-btn" data-station="4"><i></i><span class="lbl">Projects</span></button>
+      <button class="station-btn" data-station="5"><i></i><span class="lbl">Estimate</span></button>
+      <button class="station-btn" data-station="6"><i></i><span class="lbl">Education</span></button>
+      <button class="station-btn" data-station="7"><i></i><span class="lbl">Contact</span></button>
+    </nav>
+    <div class="head-right">
+      <label class="sr-only" for="style-select">Design style</label>
+      <select id="style-select" class="style-select" aria-label="Design style">
+        <option value="classic">Classic</option>
+        <option value="dark">Dark</option>
+        <option value="glass">Glassmorphism</option>
+        <option value="neu">Neumorphism</option>
+      </select>
+      <a href="#contact" class="contact-link" data-jump="7">Hire me &rarr;</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="route-wrap" id="route">
+      <div class="sticky" id="sticky">
+        <div class="track" id="track">
+
+          <!-- 01 INTRO -->
+          <section class="panel intro" id="intro" data-station="0">
+            <div class="panel-no">01 / 08</div>
+            <figure class="portrait">
+              <div class="portrait-frame"></div>
+              <img id="photo" src="photo.jpg" alt="Portrait of Devid Parmar" />
+              <div class="portrait-fallback" id="photo-fallback" aria-hidden="true">DP</div>
+              <figcaption>Devid Parmar &middot; Full stack developer</figcaption>
+            </figure>
+            <p class="panel-label rv">Full Stack Web Developer &middot; BCA Student</p>
+            <h1 class="h-xl rv d1">Devid<br /><span class="out">Parmar</span></h1>
+            <div class="intro-meta rv d2">
+              <div><b>Currently</b><span class="muted">Building web apps, ERP systems, and automation tools.</span></div>
+              <div><b>Based in</b><span class="muted">Gujarat, India. Working remotely worldwide.</span></div>
+              <div><b>Open to</b><span class="muted">Freelance and remote projects.</span></div>
+            </div>
+            <div class="intro-badges rv d3">
+              <p class="now"><span class="dot"></span> Gujarat, <span id="ist">--:--</span> IST &middot; Open for new work</p>
+              <p class="visitor-chip" title="Total portfolio visits"><span class="eye-dot"></span> <b id="visit-count">1,842</b> Portfolio Visits</p>
+            </div>
+            <div class="scroll-hint"><span>Scroll down</span><span class="arrow"></span></div>
+          </section>
+
+          <!-- 02 ABOUT -->
+          <section class="panel about" id="about" data-station="1">
+            <div class="panel-no">02 / 08</div>
+            <p class="panel-label rv">About</p>
+            <div class="about-grid">
+              <div>
+                <h2 class="h-l rv d1">I turn messy problems into <span style="color:var(--signal)">clean systems.</span></h2>
+              </div>
+              <div class="about-body rv d2">
+                <p>I am a BCA student focused on full stack development, database design, and web security. I have built a college attendance and marksheet platform, a donation website for a physiotherapy NGO, and a business ledger tool.</p>
+                <p>My stack is Python, PHP, JavaScript, and MySQL. I am deepening my knowledge of network security and system design.</p>
+                <div class="fact-table" style="margin-top:1.8rem;">
+                  <div><span>Email</span> <a href="mailto:devidparmar8954@gmail.com">devidparmar8954@gmail.com</a></div>
+                  <div><span>Phone</span> <a href="tel:+919054702563">+91 90547 02563</a></div>
+                  <div><span>WhatsApp</span> <a href="https://wa.me/919054702563?text=Hi%20Devid,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project!" target="_blank" rel="noopener">Chat on WhatsApp &rarr;</a></div>
+                  <div><span>GitHub</span> <a href="https://github.com/devid5111" target="_blank" rel="noopener">github.com/devid5111</a></div>
+                  <div><span>LinkedIn</span> <a href="https://www.linkedin.com/in/devid-parmar-bab5a6397" target="_blank" rel="noopener">devid-parmar-bab5a6397</a></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 03 SERVICES -->
+          <section class="panel services-panel" id="services" data-station="2">
+            <div class="panel-no">03 / 08</div>
+            <p class="panel-label rv">Services</p>
+            <h2 class="h-l rv d1">What I can build for you.</h2>
+            <div class="services rv d2">
+              <article class="service">
+                <span class="n">01</span>
+                <h3>Website Development</h3>
+                <p>Responsive business, portfolio, and NGO websites that load fast on every device.</p>
+                <span class="status">Available</span>
+              </article>
+              <article class="service">
+                <span class="n">02</span>
+                <h3>Web Apps &amp; ERP</h3>
+                <p>Dashboards, billing, ledgers, and management systems for schools, colleges, and shops.</p>
+                <span class="status">Available</span>
+              </article>
+              <article class="service">
+                <span class="n">03</span>
+                <h3>Database Design</h3>
+                <p>MySQL schemas with clear relationships and reliable queries.</p>
+                <span class="status">Available</span>
+              </article>
+              <article class="service">
+                <span class="n">04</span>
+                <h3>Python Automation</h3>
+                <p>Scraping, data extraction, and automated Excel reports that save hours of manual work.</p>
+                <span class="status">Available</span>
+              </article>
+              <article class="service">
+                <span class="n">05</span>
+                <h3>Security Basics</h3>
+                <p>Website security checks, hardening advice, and fixes for common issues in small sites.</p>
+                <span class="status">Authorised work only</span>
+              </article>
+            </div>
+          </section>
+
+          <!-- 04 SKILLS -->
+          <section class="panel skills-panel" id="skills" data-station="3">
+            <div class="panel-no">04 / 08</div>
+            <p class="panel-label rv">Skills</p>
+            <div class="skill-words rv d1" id="skill-words">
+              <span class="hot">Python</span>
+              <span>PHP</span>
+              <span>JavaScript</span>
+              <span>MySQL</span>
+              <span>Flask</span>
+              <span>HTML5</span>
+              <span>CSS3</span>
+              <span>Bootstrap</span>
+              <span>Git</span>
+              <span>Linux</span>
+              <span>Java</span>
+              <span>C#</span>
+              <span>Security</span>
+              <span>System Design</span>
+            </div>
+            <div class="skill-footnote rv d2">
+              <span><b>Red</b> = my strongest stack today</span>
+              <span>Hover a word to bring it into focus</span>
+            </div>
+          </section>
+
+          <!-- 05 PROJECTS (rail) -->
+          <section class="panel projects-panel" id="projects" data-station="4">
+            <div class="panel-no">05 / 08</div>
+            <div class="projects-head">
+              <p class="panel-label rv">Projects</p>
+              <h2 class="h-l rv d1">Selected work, <br />built to perform.</h2>
+              <p class="muted rv d2" style="margin-top:1.2rem; max-width: 48ch;">Three are live in production. Each card links to the live site or source code.</p>
+            </div>
+            <div class="rail">
+              <article class="proj live">
+                <div class="top"><span class="num">01</span></div>
+                <h3>CampusSync College ERP</h3>
+                <p>QR-based attendance, marks entry, faculty registers, notices, and PDF marksheets with email OTP verification.</p>
+                <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Flask</span><span class="proj-tag">MySQL</span></div>
+                <a class="proj-link" href="https://campussync.up.railway.app/" target="_blank" rel="noopener">Open live site</a>
+              </article>
+              <article class="proj live">
+                <div class="top"><span class="num">02</span></div>
+                <h3>Apex Library</h3>
+                <p>Web-based library system for browsing and managing library resources online.</p>
+                <div class="proj-tags"><span class="proj-tag">Web app</span></div>
+                <a class="proj-link" href="https://apex-library.freedev.app/?i=2" target="_blank" rel="noopener">Open live site</a>
+              </article>
+              <article class="proj live">
+                <div class="top"><span class="num">03</span></div>
+                <h3>Active Recovery Foundation</h3>
+                <p>Responsive website for a physiotherapy NGO in Ahmedabad, with events, gallery, volunteer signup, and Razorpay donations.</p>
+                <div class="proj-tags"><span class="proj-tag">HTML</span><span class="proj-tag">CSS</span><span class="proj-tag">JS</span><span class="proj-tag">PHP</span></div>
+                <a class="proj-link" href="https://activerecoveryfoundation.org" target="_blank" rel="noopener">Open live site</a>
+              </article>
+              <article class="proj">
+                <div class="top"><span class="num">04</span></div>
+                <h3>Khatabook App</h3>
+                <p>Customer ledger and business management tool for tracking accounts and transactions.</p>
+                <div class="proj-tags"><span class="proj-tag">PHP</span><span class="proj-tag">MySQL</span><span class="proj-tag">JS</span></div>
+                <a class="proj-link" href="https://github.com/devid5111/khata_book" target="_blank" rel="noopener">Source code</a>
+              </article>
+              <article class="proj">
+                <div class="top"><span class="num">05</span></div>
+                <h3>Bank Management System</h3>
+                <p>Banking system project built with PHP to manage account-related operations.</p>
+                <div class="proj-tags"><span class="proj-tag">PHP</span></div>
+                <a class="proj-link" href="https://github.com/devid5111/bank_project_by_php" target="_blank" rel="noopener">Source code</a>
+              </article>
+              <article class="proj">
+                <div class="top"><span class="num">06</span></div>
+                <h3>JustUpload</h3>
+                <p>Multi-tool file management platform with a web interface for organising and handling files.</p>
+                <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">MySQL</span></div>
+                <a class="proj-link" href="https://github.com/devid5111" target="_blank" rel="noopener">GitHub</a>
+              </article>
+              <article class="proj">
+                <div class="top"><span class="num">07</span></div>
+                <h3>Web Scraper</h3>
+                <p>Data extraction and analysis tool that collects structured data from web pages.</p>
+                <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">BeautifulSoup</span></div>
+                <a class="proj-link" href="https://github.com/devid5111" target="_blank" rel="noopener">GitHub</a>
+              </article>
+              <article class="proj">
+                <div class="top"><span class="num">08</span></div>
+                <h3>Python Security Tools</h3>
+                <p>Security automation scripts and task utilities, built as I deepen my focus on cybersecurity.</p>
+                <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Bash</span></div>
+                <a class="proj-link" href="https://github.com/devid5111" target="_blank" rel="noopener">GitHub</a>
+              </article>
+            </div>
+          </section>
+
+
+          <!-- 06 ESTIMATE (new) -->
+          <section class="panel estimate" id="estimate" data-station="5">
+            <div class="panel-no">06 / 08</div>
+            <p class="panel-label rv">Estimate</p>
+            <div class="est-grid">
+              <div class="est-form rv d1">
+                <h2 class="h-l">Get a rough price in 30 seconds.</h2>
+
+                <fieldset>
+                  <legend>Project type</legend>
+                  <div class="opts" id="est-type">
+                    <label class="opt"><input type="radio" name="type" value="landing" /> Landing page</label>
+                    <label class="opt"><input type="radio" name="type" value="business" checked /> Business website</label>
+                    <label class="opt"><input type="radio" name="type" value="app" /> Web app / ERP</label>
+                    <label class="opt"><input type="radio" name="type" value="auto" /> Automation script</label>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <legend>Pages or screens</legend>
+                  <div class="range-row">
+                    <input type="range" id="est-pages" min="1" max="20" value="5" aria-label="Number of pages or screens" />
+                    <output id="est-pages-out" for="est-pages">5</output>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <legend>Features you need</legend>
+                  <div class="opts" id="est-feats">
+                    <label class="opt"><input type="checkbox" value="login" /> Login &amp; roles</label>
+                    <label class="opt"><input type="checkbox" value="payments" /> Online payments</label>
+                    <label class="opt"><input type="checkbox" value="admin" /> Admin panel</label>
+                    <label class="opt"><input type="checkbox" value="reports" /> Reports / PDF</label>
+                    <label class="opt"><input type="checkbox" value="seo" /> SEO setup</label>
+                    <label class="opt"><input type="checkbox" value="api" /> API integration</label>
+                  </div>
+                </fieldset>
+
+                <fieldset>
+                  <legend>Timeline</legend>
+                  <div class="opts" id="est-time">
+                    <label class="opt"><input type="radio" name="time" value="standard" checked /> Standard</label>
+                    <label class="opt"><input type="radio" name="time" value="rush" /> Rush (+30%)</label>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="est-result rv d2">
+                <p class="mono">Indicative estimate</p>
+                <div>
+                  <div class="est-price" id="est-price">&#8377;--</div>
+                  <p class="est-meta" id="est-weeks" style="margin-top:14px;">Select options to see a range</p>
+                </div>
+                <div>
+                  <p class="est-note" style="margin-bottom:16px;">Rough range only. Final quote comes after a short call and a look at your requirements.</p>
+                  <div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center;">
+                    <button type="button" class="send" id="est-quote">Email quote &rarr;</button>
+                    <button type="button" class="send btn-wa" id="est-whatsapp" title="Send quote details to WhatsApp">
+                      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" style="margin-right:4px;"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.11 7.44C8.95 7.44 8.68 7.5 8.46 7.74C8.23 7.97 7.61 8.56 7.61 9.77C7.61 10.98 8.49 12.14 8.61 12.3C8.74 12.46 10.33 14.92 12.78 15.97C14.82 16.85 15.24 16.68 15.68 16.64C16.13 16.6 17.12 16.05 17.33 15.47C17.53 14.89 17.53 14.39 17.47 14.29C17.41 14.19 17.25 14.13 17.02 14.02C16.78 13.9 15.62 13.33 15.4 13.25C15.19 13.17 15.03 13.13 14.87 13.37C14.72 13.6 14.28 14.13 14.14 14.29C14.01 14.45 13.88 14.47 13.64 14.35C13.41 14.24 12.65 13.99 11.75 13.19C11.05 12.57 10.58 11.8 10.44 11.57C10.31 11.09C10.65 10.99 10.78 10.82 10.9 10.68C11.02 10.54 11.06 10.44 11.14 10.28C11.22 10.12 11.18 9.98 11.12 9.86C11.06 9.74 10.6 8.62 10.41 8.16C10.22 7.71 10.03 7.77 9.88 7.76C9.74 7.76 9.58 7.75 9.42 7.75C9.25 7.75 9.11 7.44 9.11 7.44Z"/></svg>
+                      WhatsApp quote &rarr;
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 06 EDUCATION -->
+          <section class="panel edu-panel" id="education" data-station="6">
+            <div class="panel-no">07 / 08</div>
+            <p class="panel-label rv">Education</p>
+            <div class="edu">
+              <h2 class="h-l rv d1">Bachelor of Computer Applications.</h2>
+              <ol class="edu-steps rv d2">
+                <li><b>BCA, currently pursuing</b><span>Programming, databases, web development, and software engineering fundamentals.</span></li>
+                <li><b>Self-directed full stack work</b><span>Live projects for colleges, nonprofits, and small businesses.</span></li>
+                <li><b>Cybersecurity and network security</b><span>Building automation tools while learning the defensive side of the web.</span></li>
+              </ol>
+            </div>
+          </section>
+
+          <!-- 07 CONTACT -->
+          <section class="panel contact" id="contact" data-station="7">
+            <div class="panel-no">08 / 08</div>
+            <p class="panel-label rv">Contact</p>
+            <div class="contact-grid">
+              <div>
+                <h2 class="h-xl rv d1">Let's build it.</h2>
+                <div class="contact-list rv d2">
+                  <div><span>Email</span><a href="mailto:devidparmar8954@gmail.com">devidparmar8954@gmail.com</a></div>
+                  <div><span>Phone</span><a href="tel:+919054702563">+91 90547 02563</a></div>
+                  <div><span>WhatsApp</span><a href="https://wa.me/919054702563?text=Hi%20Devid,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project!" target="_blank" rel="noopener">+91 90547 02563 (Direct Chat) &rarr;</a></div>
+                </div>
+              </div>
+              <form class="form rv d2" id="contact-form" novalidate>
+                <div class="field" data-field>
+                  <label for="name">Your name</label>
+                  <input type="text" id="name" name="name" autocomplete="name" required />
+                  <span class="err" data-err></span>
+                </div>
+                <div class="field" data-field>
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="email" autocomplete="email" required />
+                  <span class="err" data-err></span>
+                </div>
+                <div class="field" data-field>
+                  <label for="message">Project</label>
+                  <textarea id="message" name="message" rows="3" required></textarea>
+                  <span class="err" data-err></span>
+                </div>
+                <button type="submit" class="send">Send message &rarr;</button>
+                <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
+              </form>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span class="mono">&copy; <span id="year"></span> Devid Parmar</span>
+    <span class="mono visitor-foot"><span class="eye-dot"></span> <b id="footer-visits">1,842</b> visits</span>
+    <span class="mono"><a href="https://github.com/devid5111" target="_blank" rel="noopener">GitHub</a> &middot; <a href="https://www.linkedin.com/in/devid-parmar-bab5a6397" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="https://instagram.com/devid_5111._" target="_blank" rel="noopener">Instagram</a></span>
+    <a class="mono" href="#intro">Back to start &uarr;</a>
+  </footer>
+
+  <!-- Floating WhatsApp widget -->
+  <a href="https://wa.me/919054702563?text=Hi%20Devid,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project!" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" id="wa-float">
+    <span class="wa-icon-wrap">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+        <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.11 7.44C8.95 7.44 8.68 7.5 8.46 7.74C8.23 7.97 7.61 8.56 7.61 9.77C7.61 10.98 8.49 12.14 8.61 12.3C8.74 12.46 10.33 14.92 12.78 15.97C14.82 16.85 15.24 16.68 15.68 16.64C16.13 16.6 17.12 16.05 17.33 15.47C17.53 14.89 17.53 14.39 17.47 14.29C17.41 14.19 17.25 14.13 17.02 14.02C16.78 13.9 15.62 13.33 15.4 13.25C15.19 13.17 15.03 13.13 14.87 13.37C14.72 13.6 14.28 14.13 14.14 14.29C14.01 14.45 13.88 14.47 13.64 14.35C13.41 14.24 12.65 13.99 11.75 13.19C11.05 12.57 10.58 11.8 10.44 11.57C10.31 11.09C10.65 10.99 10.78 10.82 10.9 10.68C11.02 10.54 11.06 10.44 11.14 10.28C11.22 10.12 11.18 9.98 11.12 9.86C11.06 9.74 10.6 8.62 10.41 8.16C10.22 7.71 10.03 7.77 9.88 7.76C9.74 7.76 9.58 7.75 9.42 7.75C9.25 7.75 9.11 7.44 9.11 7.44Z"/>
+      </svg>
+      <span class="wa-pulse-dot"></span>
+    </span>
+    <span class="wa-label">Chat on WhatsApp</span>
+  </a>
+
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var isStacked = function () { return window.matchMedia("(max-width: 900px)").matches; };
+      function $(sel, scope) { return (scope || document).querySelector(sel); }
+      function $$(sel, scope) { return Array.prototype.slice.call((scope || document).querySelectorAll(sel)); }
+
+      document.documentElement.classList.add("js");
+
+      /* ---------- Footer year ---------- */
+      var year = $("#year");
+      if (year) year.textContent = new Date().getFullYear();
+
+      /* ---------- Vertical route engine ---------- */
+      var panels = $$(".panel");
+      var stationBtns = $$(".station-btn");
+      var current = -1;
+
+      function stationForPanel(i) {
+        if (!panels[i]) return 0;
+        var s = panels[i].getAttribute("data-station");
+        return parseInt(s, 10) || 0;
+      }
+
+      function nearestStation() {
+        var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        var viewportHeight = window.innerHeight;
+        var docHeight = document.documentElement.scrollHeight;
+
+        if (scrollY + viewportHeight >= docHeight - 50) {
+          return stationForPanel(panels.length - 1);
+        }
+
+        var header = $(".routebar");
+        var headerH = header ? header.offsetHeight : 70;
+        var probe = scrollY + headerH + 60;
+        var best = 0;
+        panels.forEach(function (panel, i) {
+          if (panel.offsetTop <= probe) {
+            best = stationForPanel(i);
+          }
+        });
+        return best;
+      }
+
+      function setCurrent(s) {
+        if (s === current) return;
+        current = s;
+        stationBtns.forEach(function (b) {
+          b.classList.toggle("current", parseInt(b.getAttribute("data-station"), 10) === s);
+        });
+      }
+
+      function update() {
+        setCurrent(nearestStation());
+      }
+
+      // Jump to a station: smooth scroll to that panel
+      function goToStation(i) {
+        var target = panels.filter(function (p) { return parseInt(p.getAttribute("data-station"), 10) === i; })[0];
+        if (!target) return;
+        var header = $(".routebar");
+        var headerH = header ? header.offsetHeight : 70;
+        var targetY = target.getBoundingClientRect().top + window.scrollY - headerH;
+        window.scrollTo({ top: Math.max(0, targetY), behavior: reduceMotion ? "auto" : "smooth" });
+      }
+
+      stationBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          goToStation(parseInt(btn.getAttribute("data-station"), 10));
+        });
+      });
+      var jump = $(".contact-link");
+      if (jump) jump.addEventListener("click", function (e) { e.preventDefault(); goToStation(7); });
+
+      var ticking = false;
+      window.addEventListener("scroll", function () {
+        if (!ticking) {
+          window.requestAnimationFrame(function () { update(); ticking = false; });
+          ticking = true;
+        }
+      }, { passive: true });
+      window.addEventListener("resize", update);
+      window.addEventListener("load", update);
+      update();
+
+      /* ---------- Reveal panel content as it enters the screen ---------- */
+      var rvEls = $$(".rv");
+      if ("IntersectionObserver" in window) {
+        var rvObs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              rvObs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, root: null });
+        rvEls.forEach(function (el) { rvObs.observe(el); });
+      } else {
+        rvEls.forEach(function (el) { el.classList.add("in"); });
+      }
+
+      /* ---------- Custom cursor (desktop) ---------- */
+      var cursor = $("#cursor");
+      if (cursor && window.matchMedia("(hover: hover) and (pointer: fine)").matches && !reduceMotion) {
+        var cx = 0, cy = 0, tx = 0, ty = 0;
+        window.addEventListener("pointermove", function (e) { tx = e.clientX; ty = e.clientY; cursor.classList.add("on"); }, { passive: true });
+        (function loop() {
+          cx += (tx - cx) * 0.25;
+          cy += (ty - cy) * 0.25;
+          cursor.style.transform = "translate3d(" + cx + "px," + cy + "px,0)";
+          requestAnimationFrame(loop);
+        })();
+        $$(".proj, .skill-words span, .service, .opt, .send, .whatsapp-float, .visitor-chip").forEach(function (el) {
+          el.addEventListener("pointerenter", function () { cursor.classList.add("big"); });
+          el.addEventListener("pointerleave", function () { cursor.classList.remove("big"); });
+        });
+      } else if (cursor) {
+        cursor.style.display = "none";
+      }
+
+
+
+      /* ---------- Style switcher (Classic / Dark / Glass / Neumorphism) ---------- */
+      var STYLES = ["classic", "dark", "glass", "neu"];
+      var styleSelect = $("#style-select");
+      function applyStyle(name) {
+        if (STYLES.indexOf(name) === -1) name = "classic";
+        document.documentElement.setAttribute("data-style", name);
+        if (styleSelect) styleSelect.value = name;
+        try { localStorage.setItem("dp-route-style", name); } catch (err) { /* storage unavailable */ }
+      }
+      if (styleSelect) {
+        styleSelect.addEventListener("change", function () { applyStyle(styleSelect.value); });
+      }
+      var savedStyle = null;
+      try { savedStyle = localStorage.getItem("dp-route-style"); } catch (err) { savedStyle = null; }
+      applyStyle(savedStyle || "classic");
+
+      /* ---------- Photo fallback (shows "DP" until a photo is added) ---------- */
+      var photo = $("#photo");
+      var photoFallback = $("#photo-fallback");
+      if (photo && photoFallback) {
+        var showFallback = function () { photo.style.display = "none"; photoFallback.style.display = "grid"; };
+        photo.addEventListener("error", showFallback);
+        if (photo.complete && photo.naturalWidth === 0) showFallback();
+      }
+
+      /* ---------- Live Gujarat time ---------- */
+      var istEl = $("#ist");
+      function tickIst() {
+        if (!istEl) return;
+        try {
+          istEl.textContent = new Intl.DateTimeFormat("en-GB", {
+            timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: false
+          }).format(new Date());
+        } catch (err) {
+          istEl.textContent = "--:--";
+        }
+      }
+      tickIst();
+      setInterval(tickIst, 30000);
+
+      /* ---------- Project estimator ----------
+         INDICATIVE PRICES in INR. Edit these numbers to match your own rates. */
+      var PRICES = {
+        base:     { landing: 5000, business: 12000, app: 35000, auto: 9000 },
+        perPage:  { landing: 300,  business: 800,   app: 1200,  auto: 0 },
+        feature:  { login: 6000, payments: 7000, admin: 9000, reports: 5000, seo: 3000, api: 6000 },
+        weeks:    { landing: 1, business: 2, app: 5, auto: 1 },
+        rushFactor: 1.3
+      };
+      var inr = new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 });
+
+      var estPages = $("#est-pages");
+      var estPagesOut = $("#est-pages-out");
+      var estPrice = $("#est-price");
+      var estWeeks = $("#est-weeks");
+      var estQuote = $("#est-quote");
+
+      function selectedValue(name) {
+        var el = document.querySelector('input[name="' + name + '"]:checked');
+        return el ? el.value : null;
+      }
+
+      function selectedFeatures() {
+        return $$("#est-feats input:checked").map(function (i) { return i.value; });
+      }
+
+      function estimate() {
+        var type = selectedValue("type") || "business";
+        var time = selectedValue("time") || "standard";
+        var pages = parseInt(estPages.value, 10) || 1;
+        var feats = selectedFeatures();
+
+        var total = PRICES.base[type] + PRICES.perPage[type] * Math.max(0, pages - 3);
+        feats.forEach(function (f) { total += PRICES.feature[f] || 0; });
+
+        var weeks = PRICES.weeks[type] + Math.ceil(pages / 6) + Math.round(feats.length * 0.5);
+        if (time === "rush") {
+          total = total * PRICES.rushFactor;
+          weeks = Math.max(1, Math.round(weeks / 1.5));
+        }
+
+        var low = Math.round(total / 500) * 500;
+        var high = Math.round(total * 1.2 / 500) * 500;
+
+        estPrice.textContent = "\u20B9" + inr.format(low) + " \u2013 \u20B9" + inr.format(high);
+        estWeeks.textContent = "About " + weeks + (weeks === 1 ? " week" : " weeks") +
+          " \u00B7 " + (time === "rush" ? "rush timeline" : "standard timeline");
+
+        return { type: type, time: time, pages: pages, feats: feats, low: low, high: high, weeks: weeks };
+      }
+
+      if (estPages) {
+        estPages.addEventListener("input", function () {
+          estPagesOut.textContent = estPages.value;
+          estimate();
+        });
+      }
+      $$("#estimate input").forEach(function (el) {
+        el.addEventListener("change", estimate);
+      });
+      if (estPrice) estimate();
+
+      if (estQuote) {
+        estQuote.addEventListener("click", function () {
+          var e = estimate();
+          var labels = { landing: "Landing page", business: "Business website", app: "Web app / ERP", auto: "Automation script" };
+          var subject = encodeURIComponent("Quote request: " + labels[e.type]);
+          var body = encodeURIComponent(
+            "Hi Devid,\n\nI would like a quote for:\n" +
+            "- Type: " + labels[e.type] + "\n" +
+            "- Pages / screens: " + e.pages + "\n" +
+            "- Features: " + (e.feats.length ? e.feats.join(", ") : "none selected") + "\n" +
+            "- Timeline: " + (e.time === "rush" ? "rush" : "standard") + "\n" +
+            "- Indicative range shown: \u20B9" + inr.format(e.low) + " to \u20B9" + inr.format(e.high) + "\n\n" +
+            "Name:\nProject details:\n"
+          );
+          window.location.href = "mailto:devidparmar8954@gmail.com?subject=" + subject + "&body=" + body;
+        });
+      }
+
+      var estWhatsApp = $("#est-whatsapp");
+      if (estWhatsApp) {
+        estWhatsApp.addEventListener("click", function () {
+          var e = estimate();
+          var labels = { landing: "Landing page", business: "Business website", app: "Web app / ERP", auto: "Automation script" };
+          var text =
+            "Hi Devid! I generated an estimate on your portfolio:\n\n" +
+            "*Project Type:* " + labels[e.type] + "\n" +
+            "*Screens / Pages:* " + e.pages + "\n" +
+            "*Features:* " + (e.feats.length ? e.feats.join(", ") : "None selected") + "\n" +
+            "*Timeline:* " + (e.time === "rush" ? "Rush (+30%)" : "Standard") + "\n" +
+            "*Indicative Range:* ₹" + inr.format(e.low) + " – ₹" + inr.format(e.high) + "\n" +
+            "*Estimated Duration:* " + e.weeks + (e.weeks === 1 ? " week" : " weeks") + "\n\n" +
+            "I would like to discuss this project with you.";
+          window.open("https://wa.me/919054702563?text=" + encodeURIComponent(text), "_blank");
+        });
+      }
+
+      /* ---------- Contact form ---------- */
+      var form = $("#contact-form");
+      var note = $("#form-note");
+      var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      var rules = {
+        name: { ok: function (v) { return v.trim().length >= 2; }, msg: "Please enter your name." },
+        email: { ok: function (v) { return EMAIL.test(v.trim()); }, msg: "Enter a valid email." },
+        message: { ok: function (v) { return v.trim().length >= 10; }, msg: "Tell me a little more (10+ characters)." }
+      };
+
+      function checkField(input) {
+        var wrap = input.closest("[data-field]");
+        var rule = rules[input.name];
+        var valid = rule ? rule.ok(input.value) : true;
+        wrap.classList.toggle("invalid", !valid);
+        $("[data-err]", wrap).textContent = valid ? "" : rule.msg;
+        return valid;
+      }
+
+      if (form) {
+        var inputs = $$("input, textarea", form);
+        inputs.forEach(function (input) {
+          input.addEventListener("blur", function () { checkField(input); });
+          input.addEventListener("input", function () {
+            if (input.closest("[data-field]").classList.contains("invalid")) checkField(input);
+          });
+        });
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var ok = inputs.map(checkField).every(Boolean);
+          if (!ok) {
+            note.textContent = "";
+            var bad = $(".field.invalid input, .field.invalid textarea", form);
+            if (bad) bad.focus();
+            return;
+          }
+          var name = $("#name").value.trim();
+          var email = $("#email").value.trim();
+          var message = $("#message").value.trim();
+          var subject = encodeURIComponent("Project enquiry from " + name);
+          var body = encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\n" + message);
+          window.location.href = "mailto:devidparmar8954@gmail.com?subject=" + subject + "&body=" + body;
+          note.textContent = "Opening your mail app with the message ready to send.";
+          form.reset();
+        });
+      }
+
+      /* ---------- Visitor Counter ---------- */
+      (function initVisitorCounter() {
+        var countEl = $("#visit-count");
+        var footerEl = $("#footer-visits");
+        var STORAGE_KEY = "dp_portfolio_visits";
+        var SESSION_KEY = "dp_session_counted";
+        var BASE_COUNT = 1842;
+
+        var stored = parseInt(localStorage.getItem(STORAGE_KEY), 10);
+        if (isNaN(stored) || stored < BASE_COUNT) {
+          stored = BASE_COUNT;
+        }
+
+        var isNewSession = !sessionStorage.getItem(SESSION_KEY);
+        if (isNewSession) {
+          stored += 1;
+          try {
+            localStorage.setItem(STORAGE_KEY, stored);
+            sessionStorage.setItem(SESSION_KEY, "true");
+          } catch (e) {}
+        }
+
+        function animateCount(target, start) {
+          var current = start;
+          var step = Math.max(1, Math.ceil((target - start) / 20));
+          var timer = setInterval(function () {
+            current += step;
+            if (current >= target) {
+              current = target;
+              clearInterval(timer);
+            }
+            var val = current.toLocaleString("en-IN");
+            if (countEl) countEl.textContent = val;
+            if (footerEl) footerEl.textContent = val;
+          }, 35);
+        }
+
+        var animStart = Math.max(0, stored - 18);
+        animateCount(stored, animStart);
+      })();
+    })();
+  </script>
+</body>
+</html>
