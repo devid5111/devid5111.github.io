@@ -1,0 +1,452 @@
+/* ==========================================================
+   ORIGINKIT GLIMMER THEME
+   Integrated from Originkit.dev:
+   - Glimmer Vale: Twilight meadow & iridescent glitter hills background
+   - Vector Wordmark: Interactive vector text with live coordinate handles
+   - Holo Flip Badge: 3D interactive holographic lanyard card
+   ========================================================== */
+
+html[data-style="glimmer"] {
+  --paper: #080915;
+  --paper-2: #101227;
+  --ink: #f4f6ff;
+  --ink-2: #ccd3f5;
+  --muted: #858eb5;
+  --signal: #ff7e5f;
+  --line: rgba(184, 164, 249, 0.16);
+  --glimmer-peach: #ff9a76;
+  --glimmer-violet: #a78bfa;
+  --glimmer-cyan: #38bdf8;
+}
+
+html[data-style="glimmer"] body {
+  background: #080915;
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+html[data-style="glimmer"] .routebar {
+  background: rgba(8, 9, 21, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+/* ---------- Glimmer Vale Canvas (Hero background) ---------- */
+.glimmer-vale-container {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+html[data-style="glimmer"] .glimmer-vale-container {
+  display: block;
+}
+
+#glimmer-vale-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ---------- Vector Wordmark (Hero Name) ---------- */
+.vector-wordmark-wrap {
+  display: none;
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: clamp(140px, 18vw, 240px);
+  margin: 1rem 0 1.5rem;
+  z-index: 2;
+}
+
+html[data-style="glimmer"] .vector-wordmark-wrap {
+  display: block;
+}
+
+html[data-style="glimmer"] .intro .h-xl {
+  display: none; /* Replaced by interactive Vector Wordmark in Glimmer theme */
+}
+
+#wordmark-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}
+
+.wordmark-handle-label {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--glimmer-peach);
+  background: rgba(8, 9, 21, 0.85);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 126, 95, 0.5);
+  pointer-events: none;
+  white-space: nowrap;
+  transform: translate(14px, -14px);
+  transition: opacity 0.25s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Holo Flip Badge (Hero Photo Slot) ---------- */
+.holo-badge-wrap {
+  display: none;
+  position: absolute;
+  right: var(--pad);
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(260px, 25vw, 360px);
+  aspect-ratio: 5 / 7;
+  z-index: 10;
+  perspective: 1200px;
+}
+
+html[data-style="glimmer"] .holo-badge-wrap {
+  display: block;
+}
+
+html[data-style="glimmer"] .portrait {
+  display: none; /* Replaced by Holo Flip Badge in Glimmer theme */
+}
+
+.holo-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  border-radius: 22px;
+}
+
+.holo-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+/* Lanyard Clip & String */
+.holo-clip {
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34px;
+  height: 30px;
+  background: linear-gradient(180deg, #d9dcdf 0%, #7c8186 100%);
+  border-radius: 6px 6px 4px 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  z-index: 15;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.holo-clip::before {
+  content: "";
+  width: 7px;
+  height: 15px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 3px;
+}
+
+.holo-lanyard-string {
+  position: absolute;
+  top: -90px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 68px;
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.1) 0%, rgba(255, 126, 95, 0.95) 100%);
+  box-shadow: 0 0 12px rgba(255, 126, 95, 0.6);
+}
+
+/* Faces */
+.holo-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 22px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: linear-gradient(145deg, #13142e 0%, #080918 100%);
+  border: 1.5px solid rgba(167, 139, 250, 0.35);
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.85),
+              0 0 40px -10px rgba(167, 139, 250, 0.3),
+              inset 0 1px 1px rgba(255, 255, 255, 0.25);
+}
+
+.holo-face-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(145deg, #0e1026 0%, #060713 100%);
+  justify-content: space-between;
+}
+
+/* Holographic rainbow glare */
+.holo-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: linear-gradient(
+    115deg,
+    transparent 15%,
+    rgba(255, 154, 118, 0.35) 35%,
+    rgba(167, 139, 250, 0.45) 50%,
+    rgba(56, 189, 248, 0.35) 65%,
+    transparent 85%
+  );
+  background-size: 260% 260%;
+  opacity: 0.65;
+  pointer-events: none;
+  mix-blend-mode: color-dodge;
+  transition: opacity 0.3s;
+}
+
+/* Photo slot on front */
+.holo-photo-slot {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 14px;
+}
+
+.holo-photo-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: contrast(1.06) saturate(1.1);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.holo-badge-wrap:hover .holo-photo-slot img {
+  transform: scale(1.04);
+}
+
+.holo-badge-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.holo-badge-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.holo-badge-stars {
+  color: #ffd269;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+
+.holo-badge-sub {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  color: var(--glimmer-peach);
+  letter-spacing: 0.06em;
+}
+
+.holo-flip-hint {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Back Face */
+.holo-back-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+  padding-bottom: 10px;
+}
+
+.holo-back-header b {
+  color: var(--glimmer-peach);
+  font-size: 13px;
+}
+
+.holo-back-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.holo-stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.holo-stat-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  margin: 0 12px;
+  overflow: hidden;
+}
+
+.holo-stat-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--glimmer-peach), var(--glimmer-violet));
+  border-radius: 999px;
+}
+
+.holo-quote {
+  font-style: italic;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+  border-left: 2px solid var(--glimmer-peach);
+  padding-left: 10px;
+  margin: 10px 0;
+}
+
+.holo-back-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(167, 139, 250, 0.2);
+  padding-top: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.holo-back-footer a {
+  color: var(--glimmer-peach);
+  font-weight: 600;
+}
+
+/* ---------- Originkit Section Components (Glimmer Theme) ---------- */
+html[data-style="glimmer"] .proj,
+html[data-style="glimmer"] .service,
+html[data-style="glimmer"] .est-result,
+html[data-style="glimmer"] .now,
+html[data-style="glimmer"] .visitor-chip,
+html[data-style="glimmer"] .opt {
+  background: rgba(16, 18, 39, 0.72);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.4s, box-shadow 0.4s, background-color 0.4s;
+}
+
+html[data-style="glimmer"] .services {
+  border-top: 0;
+  border-bottom: 0;
+  gap: 18px;
+  margin-top: 2rem;
+}
+
+html[data-style="glimmer"] .service {
+  border-right: 0;
+  padding: 26px;
+}
+
+html[data-style="glimmer"] .proj:hover {
+  transform: translateY(-6px);
+  border-color: var(--glimmer-peach);
+  box-shadow: 0 25px 50px -10px rgba(255, 126, 95, 0.28), 0 0 25px rgba(167, 139, 250, 0.25);
+  background: rgba(26, 29, 62, 0.88);
+  color: #fff;
+}
+
+html[data-style="glimmer"] .proj:hover p {
+  color: rgba(244, 246, 255, 0.85);
+}
+
+html[data-style="glimmer"] .proj:hover .proj-link {
+  border-color: #fff;
+  color: #fff;
+}
+
+html[data-style="glimmer"] .proj-tag {
+  border: 1px solid rgba(167, 139, 250, 0.35);
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+html[data-style="glimmer"] .opt:has(input:checked) {
+  background: linear-gradient(135deg, rgba(255, 126, 95, 0.25), rgba(167, 139, 250, 0.25));
+  border-color: var(--glimmer-peach);
+  color: #fff;
+}
+
+html[data-style="glimmer"] .send {
+  background: linear-gradient(135deg, var(--glimmer-peach) 0%, #ff5252 100%);
+  color: #080915;
+  border-radius: 999px;
+  box-shadow: 0 10px 25px -5px rgba(255, 126, 95, 0.5);
+}
+
+html[data-style="glimmer"] .send:hover {
+  background: #ffffff;
+  color: #080915;
+  transform: translateX(5px);
+  box-shadow: 0 12px 30px -5px rgba(255, 255, 255, 0.65);
+}
+
+html[data-style="glimmer"] .contact {
+  background: transparent;
+  color: var(--ink);
+}
+
+html[data-style="glimmer"] .contact .contact-list span,
+html[data-style="glimmer"] .contact .field label {
+  color: var(--muted);
+}
+
+html[data-style="glimmer"] .contact .field input,
+html[data-style="glimmer"] .contact .field textarea {
+  color: var(--ink);
+  border-bottom-color: rgba(167, 139, 250, 0.35);
+}
+
+/* Responsive Overrides */
+@media (max-width: 900px) {
+  .holo-badge-wrap {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: min(300px, 82vw);
+    margin: 1.5rem 0 3.5rem;
+  }
+}
