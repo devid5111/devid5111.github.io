@@ -1250,64 +1250,100 @@
       var cardInner = document.querySelector(".holo-card-inner");
       if (!wrap || !cardInner) return null;
 
+      var sheen = wrap.querySelector(".holo-sheen");
+      var glares = wrap.querySelectorAll(".holo-glare");
       var isFlipped = false;
-      var tilt = { x: 0, y: 0, targetX: 0, targetY: 0 };
-      var raf = 0;
+      var flipAngle = 0;
+      var targetFlip = 0;
+
+      var st = {
+        tx: 0,
+        ty: 0,
+        targetTx: 0,
+        targetTy: 0,
+        sw: 0,
+        targetSw: 0,
+        over: 0,
+        t: 0
+      };
+
+      var raf = 0, last = 0;
 
       // Click to flip
       wrap.addEventListener("click", function (e) {
         if (e.target.tagName === "A") return;
         isFlipped = !isFlipped;
-        if (isFlipped) {
-          cardInner.classList.add("flipped");
-        } else {
-          cardInner.classList.remove("flipped");
-        }
+        targetFlip = isFlipped ? 180 : 0;
       });
 
-      // Pointermove 3D spring tilt
+      // Pointer movement for spring tilt and holographic glare
       wrap.addEventListener("pointermove", function (e) {
         var rect = wrap.getBoundingClientRect();
         var x = (e.clientX - rect.left) / rect.width - 0.5;
         var y = (e.clientY - rect.top) / rect.height - 0.5;
-        tilt.targetY = x * 22; // rotateY
-        tilt.targetX = -y * 22; // rotateX
-
-        var glares = wrap.querySelectorAll(".holo-glare");
-        var pos = 50 + x * 60;
-        var posY = 50 + y * 60;
-        for (var i = 0; i < glares.length; i++) {
-          glares[i].style.backgroundPosition = pos + "% " + posY + "%";
-          glares[i].style.opacity = "0.7";
-        }
+        st.targetTy = x * 20; // rotateY
+        st.targetTx = -y * 18; // rotateX
+        st.targetSw = x * 8; // slight pendulum swing
+        st.over = 1;
       });
 
       wrap.addEventListener("pointerleave", function () {
-        tilt.targetX = 0;
-        tilt.targetY = 0;
-        var glares = wrap.querySelectorAll(".holo-glare");
-        for (var i = 0; i < glares.length; i++) {
-          glares[i].style.opacity = "0.2";
-        }
+        st.targetTx = 0;
+        st.targetTy = 0;
+        st.targetSw = 0;
+        st.over = 0;
       });
 
-      function updatePhysics() {
+      function updatePhysics(now) {
         if (!isGlimmerActive() || document.hidden) {
           raf = 0;
           return;
         }
 
-        tilt.x += (tilt.targetX - tilt.x) * 0.1;
-        tilt.y += (tilt.targetY - tilt.y) * 0.1;
+        var dt = last ? Math.min(0.05, (now - last) / 1000) : 0.016;
+        last = now;
+        st.t += dt;
 
-        var baseFlip = isFlipped ? 180 : 0;
-        cardInner.style.transform = "rotateX(" + tilt.x.toFixed(2) + "deg) rotateY(" + (baseFlip + tilt.y).toFixed(2) + "deg)";
+        // Spring easing
+        st.tx += (st.targetTx - st.tx) * 0.12;
+        st.ty += (st.targetTy - st.ty) * 0.12;
+        st.sw += (st.targetSw - st.sw) * 0.08;
+        flipAngle += (targetFlip - flipAngle) * 0.14;
+
+        // Gentle ambient sway when resting
+        var idleSway = Math.sin(st.t * 1.8) * 1.2;
+        var tiltX = st.tx;
+        var tiltY = flipAngle + st.ty + idleSway;
+
+        cardInner.style.transform = "rotateX(" + tiltX.toFixed(3) + "deg) rotateY(" + tiltY.toFixed(3) + "deg)";
+
+        // Holo sheen and glare foil physics from Originkit
+        var nu = st.ty / 14;
+        var nv = st.tx / 14;
+        var fs = Math.sin((flipAngle * Math.PI) / 180);
+        var drift = 10 * Math.sin(st.t * 0.9) + 6 * Math.sin(st.t * 0.53 + 1.1);
+        var pos = Math.max(0, Math.min(100, 50 + nu * 35 + fs * 30 + drift));
+        var posY = Math.max(0, Math.min(100, 50 - nv * 25 + drift * 0.5));
+        var gpos = Math.max(0, Math.min(100, 50 + nu * 45 + fs * 40));
+
+        if (sheen) {
+          sheen.style.opacity = String(0.25 + 0.35 * st.over);
+          sheen.style.backgroundPosition = pos.toFixed(1) + "% " + posY.toFixed(1) + "%";
+        }
+
+        for (var i = 0; i < glares.length; i++) {
+          glares[i].style.opacity = String(0.18 + 0.45 * st.over);
+          glares[i].style.backgroundPosition = gpos.toFixed(1) + "% " + posY.toFixed(1) + "%";
+        }
 
         raf = requestAnimationFrame(updatePhysics);
       }
 
       function start() {
-        if (!raf) raf = requestAnimationFrame(updatePhysics);
+        if (!raf) {
+          last = 0;
+          raf = requestAnimationFrame(updatePhysics);
+        }
       }
 
       function stop() {

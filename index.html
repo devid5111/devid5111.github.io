@@ -705,58 +705,123 @@
 
             <!-- Originkit Holo Flip Badge (3D Interactive Lanyard Card) -->
             <div class="holo-badge-wrap" title="Click card to flip 3D badge">
-              <div class="holo-lanyard-string"></div>
-              <div class="holo-clip"></div>
+              <!-- Hanging cord across top with center bead -->
+              <svg class="holo-cord-svg" viewBox="0 0 280 44" preserveAspectRatio="none">
+                <path d="M 20 14 Q 140 34 260 14" stroke="#9A9DA0" stroke-width="1.8" fill="none" stroke-linecap="round"></path>
+                <circle cx="20" cy="14" r="3" fill="#9A9DA0"></circle>
+                <circle cx="260" cy="14" r="3" fill="#9A9DA0"></circle>
+                <circle cx="140" cy="24" r="3.8" fill="#D4D7DC"></circle>
+              </svg>
+              <!-- Wire running down to clip -->
+              <div class="holo-drop-wire"></div>
+              <!-- Metallic badge clip -->
+              <div class="holo-clip">
+                <div class="holo-clip-inner"></div>
+              </div>
+
+              <!-- 3D Card -->
               <div class="holo-card-inner">
-                <!-- Front Face: Photo & Identity -->
+                <!-- Front Face: Photo, Name, Ratings & Stats -->
                 <div class="holo-face holo-face-front">
-                  <div class="holo-glare"></div>
+                  <div class="holo-keyline"></div>
+                  <!-- Top Row: Card Title & Stars -->
+                  <div class="holo-front-head">
+                    <span class="holo-card-name">Devid Parmar</span>
+                    <div class="holo-front-stars" aria-label="5 stars">
+                      <svg viewBox="0 0 12 12"><path d="M6 0.8 L7.5 4.2 L11.2 4.6 L8.4 7.1 L9.2 10.8 L6 8.9 L2.8 10.8 L3.6 7.1 L0.8 4.6 L4.5 4.2 Z" fill="#FFD269"></path></svg>
+                      <svg viewBox="0 0 12 12"><path d="M6 0.8 L7.5 4.2 L11.2 4.6 L8.4 7.1 L9.2 10.8 L6 8.9 L2.8 10.8 L3.6 7.1 L0.8 4.6 L4.5 4.2 Z" fill="#FFD269"></path></svg>
+                      <svg viewBox="0 0 12 12"><path d="M6 0.8 L7.5 4.2 L11.2 4.6 L8.4 7.1 L9.2 10.8 L6 8.9 L2.8 10.8 L3.6 7.1 L0.8 4.6 L4.5 4.2 Z" fill="#FFD269"></path></svg>
+                      <svg viewBox="0 0 12 12"><path d="M6 0.8 L7.5 4.2 L11.2 4.6 L8.4 7.1 L9.2 10.8 L6 8.9 L2.8 10.8 L3.6 7.1 L0.8 4.6 L4.5 4.2 Z" fill="#FFD269"></path></svg>
+                      <svg viewBox="0 0 12 12"><path d="M6 0.8 L7.5 4.2 L11.2 4.6 L8.4 7.1 L9.2 10.8 L6 8.9 L2.8 10.8 L3.6 7.1 L0.8 4.6 L4.5 4.2 Z" fill="#FFD269"></path></svg>
+                    </div>
+                  </div>
+
+                  <!-- Artwork / Photo Slot -->
                   <div class="holo-photo-slot">
-                    <img src="photo.jpg" alt="Portrait of Devid Parmar" />
+                    <img src="photo.jpg" alt="Portrait of Devid Parmar" draggable="false" />
                   </div>
-                  <div class="holo-badge-meta">
-                    <div class="holo-badge-title">
-                      <span>Devid Parmar</span>
-                      <span class="holo-badge-stars">★★★★★</span>
+
+                  <!-- Type Bar Pill -->
+                  <div class="holo-type-bar">
+                    <span>FULL STACK DEVELOPER</span>
+                    <svg class="holo-set-glyph" viewBox="0 0 24 24" width="12" height="12">
+                      <path d="M12 2 L22 12 L12 22 L2 12 Z" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"></path>
+                      <path d="M12 6.5 L13.3 10.7 L17.5 12 L13.3 13.3 L12 17.5 L10.7 13.3 L6.5 12 L10.7 10.7 Z" fill="currentColor"></path>
+                    </svg>
+                  </div>
+
+                  <!-- Stat Rows -->
+                  <div class="holo-stats-table">
+                    <div class="holo-stat-item">
+                      <span class="holo-stat-lbl">FULL STACK</span>
+                      <div class="holo-stat-track"><div class="holo-stat-bar" style="width: 95%;"></div></div>
+                      <span class="holo-stat-val">95</span>
                     </div>
-                    <div class="holo-badge-sub">Full Stack Developer · BCA</div>
-                    <div class="holo-flip-hint">⟲ Click card to flip</div>
+                    <div class="holo-stat-item">
+                      <span class="holo-stat-lbl">PYTHON / FLASK</span>
+                      <div class="holo-stat-track"><div class="holo-stat-bar" style="width: 92%;"></div></div>
+                      <span class="holo-stat-val">92</span>
+                    </div>
+                    <div class="holo-stat-item">
+                      <span class="holo-stat-lbl">SQL / ERP</span>
+                      <div class="holo-stat-track"><div class="holo-stat-bar" style="width: 90%;"></div></div>
+                      <span class="holo-stat-val">90</span>
+                    </div>
                   </div>
-                </div>
-                <!-- Back Face: Stats & GitHub Verification -->
-                <div class="holo-face holo-face-back">
-                  <div class="holo-glare"></div>
-                  <div class="holo-back-header">
-                    <b>DEV IDENTITY</b>
+
+                  <!-- Front Footer -->
+                  <div class="holo-rule"></div>
+                  <div class="holo-front-footer">
                     <span>#01 / 08</span>
+                    <span class="holo-flip-tag">⟲ CLICK TO FLIP</span>
+                    <span>Illus. Devid</span>
                   </div>
-                  <div class="holo-back-stats">
-                    <div class="holo-stat-row">
-                      <span>Full Stack</span>
-                      <div class="holo-stat-bar"><div class="holo-stat-fill" style="width: 95%;"></div></div>
-                      <span>95%</span>
-                    </div>
-                    <div class="holo-stat-row">
-                      <span>Python &amp; Flask</span>
-                      <div class="holo-stat-bar"><div class="holo-stat-fill" style="width: 92%;"></div></div>
-                      <span>92%</span>
-                    </div>
-                    <div class="holo-stat-row">
-                      <span>Databases &amp; ERP</span>
-                      <div class="holo-stat-bar"><div class="holo-stat-fill" style="width: 90%;"></div></div>
-                      <span>90%</span>
-                    </div>
-                    <div class="holo-stat-row">
-                      <span>Security</span>
-                      <div class="holo-stat-bar"><div class="holo-stat-fill" style="width: 86%;"></div></div>
-                      <span>86%</span>
-                    </div>
+
+                  <!-- Dynamic Holographic Sheen & Glare Layers -->
+                  <div class="holo-sheen"></div>
+                  <div class="holo-glare"></div>
+                </div>
+
+                <!-- Back Face: Holographic Foil, Emblem & Technical Identity -->
+                <div class="holo-face holo-face-back">
+                  <!-- Lattice Background Pattern -->
+                  <svg class="holo-lattice-svg" width="100%" height="100%">
+                    <path d="M10 0 L0 10 M30 0 L0 30 M50 0 L0 50 M70 0 L0 70 M90 0 L0 90 M110 0 L0 110 M130 0 L0 130 M150 0 L0 150 M170 0 L0 170 M190 0 L0 190 M210 0 L0 210 M230 0 L0 230 M250 0 L0 250 M270 0 L0 270 M0 0 L270 270" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none"></path>
+                  </svg>
+                  <div class="holo-keyline"></div>
+
+                  <!-- Back Top Header -->
+                  <div class="holo-back-top">
+                    <span>NORTHERN SET</span>
+                    <span>1ST EDITION</span>
                   </div>
-                  <div class="holo-quote">“I turn messy problems into clean systems.”</div>
+
+                  <!-- Centered Originkit Emblem -->
+                  <div class="holo-emblem-wrap">
+                    <svg viewBox="-50 -50 100 100" width="80" height="80">
+                      <circle r="46" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.5"></circle>
+                      <circle r="40" stroke="currentColor" stroke-width="0.6" fill="none" opacity="0.35"></circle>
+                      <path d="M0 -32 L32 0 L0 32 L-32 0 Z" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linejoin="round"></path>
+                      <path d="M0 -24 L24 0 L0 24 L-24 0 Z" stroke="currentColor" stroke-width="0.6" fill="none" opacity="0.5"></path>
+                      <path d="M0 -18 L4.2 -4.2 L18 0 L4.2 4.2 L0 18 L-4.2 4.2 L-18 0 L-4.2 -4.2 Z" fill="currentColor"></path>
+                    </svg>
+                  </div>
+
+                  <!-- Rarity Pill -->
+                  <div class="holo-rarity-badge">✦ ULTRA RARE ✦</div>
+
+                  <!-- Flavour Quote -->
+                  <div class="holo-flavour-quote">“I turn messy problems into clean, fast, and reliable software systems.”</div>
+
+                  <!-- Back Footer -->
+                  <div class="holo-rule"></div>
                   <div class="holo-back-footer">
-                    <span>Gujarat, IN</span>
-                    <a href="https://github.com/devid5111" target="_blank" rel="noopener">@devid5111 &rarr;</a>
+                    <span>#01 / 08</span>
+                    <a href="https://github.com/devid5111" target="_blank" rel="noopener">Gujarat, IN &middot; @devid5111 &rarr;</a>
                   </div>
+
+                  <!-- Dynamic Glare Layer -->
+                  <div class="holo-glare"></div>
                 </div>
               </div>
             </div>

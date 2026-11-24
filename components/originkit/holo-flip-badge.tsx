@@ -1,4 +1,4 @@
-﻿// @ts-nocheck
+// @ts-nocheck
 /* eslint-disable */
 // Delivered by Originkit Â· stack: nextjs
 "use client";
