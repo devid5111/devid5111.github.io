@@ -672,11 +672,11 @@
     <div class="head-right">
       <label class="sr-only" for="style-select">Design style</label>
       <select id="style-select" class="style-select" aria-label="Design style">
+        <option value="glimmer">Originkit Glimmer</option>
         <option value="classic">Classic</option>
         <option value="dark">Dark</option>
         <option value="glass">Glassmorphism</option>
         <option value="neu">Neumorphism</option>
-        <option value="glimmer">Originkit Glimmer</option>
       </select>
       <a href="#contact" class="contact-link" data-jump="7">Hire me &rarr;</a>
     </div>
@@ -1224,7 +1224,7 @@
       }
       var savedStyle = null;
       try { savedStyle = localStorage.getItem("dp-route-style"); } catch (err) { savedStyle = null; }
-      applyStyle(savedStyle || "classic");
+      applyStyle(savedStyle || "glimmer");
 
       /* ---------- Photo fallback (shows "DP" until a photo is added) ---------- */
       var photo = $("#photo");
