@@ -1,4 +1,5 @@
-﻿/* eslint-disable */
+﻿// @ts-nocheck
+/* eslint-disable */
 // Originkit â props baked into the default export.
 "use client"
 
